@@ -61,9 +61,92 @@ public class ArrayPromblems {
         return false;
     }
 
+    static boolean linearIn(int[] outer, int[] inner) {
+        if(inner.length==0) return true;
+        for(int i = 0; i<=outer.length - inner.length; i++){
+            if(outer[i] == inner[0]){
+                for(int j = 0; j<inner.length;){
+                    if ((inner[j] == outer[i])){
+                        i++;
+                        j++;
+                    }
+                    else i++;
+                    if(j==inner.length) return true;
+                    if(i==outer.length) return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    static int[] squareUp(int n) {
+        int[] answer = new int[n*n];
+        if(answer.length == 0) return answer;
+        for(int i = 0, r = 1; i<answer.length; i= i + n, r++){
+            for(int j = i+n-1, k = 1; j>=(n*r)-r; j--){
+                answer[j] = k++;
+
+            }
+        }
+        return answer;
+    }
+
+    static int[] seriesUp(int n) {
+        int[] answer = new int[n*(n+1)/2];
+        for(int i = 0, step = 1; i<answer.length;i+=step, step++){
+            for(int j = i, local = 1; local<=step; j++,local++){
+                answer[j] = local;
+            }
+        }
+        return answer;
+    }
+
+    static int maxMirror(int[] nums) {
+        int answer = 0;
+        for(int i = 0; i<nums.length; i++){
+            for(int j = nums.length-1, localMax = 0, localIndex = i; j>=0; j--){
+                if(nums[localIndex] == nums[j]){
+                        localMax++;
+                        localIndex++;
+                        answer = Math.max(answer,localMax);
+                }
+                else localMax = 0;
+                if (localIndex == nums.length){
+                    break;
+                }
+            }
+        }
+        return answer;
+    }
+
+    static int countClumps(int[] nums) {
+        int answer = 0;
+        for(int i = 0; i<nums.length-1; i++){
+            if(nums[i] == nums[i+1]){
+                answer++;
+                for(int j = i+1; j<nums.length-1; j++){
+                    if(nums[j] != nums[j+1]){
+                        i= j;
+                        break;
+                    }
+                    if(j == nums.length-2) return answer;
+
+                }
+            }
+        }
+        return answer;
+    }
+
+
+
+
+
+
+
+
 
     public static void main(String[] args) {
-        System.out.println(canBalance(new int[]{1, 1, 1, 2, 1}));
+        System.out.println(countClumps(new int[]{1,1,1,1,1}));
     }
 
 }
